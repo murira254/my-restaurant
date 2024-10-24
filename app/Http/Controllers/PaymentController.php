@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\payment;
+use App\Models\User;
 use App\Http\Requests\StorepaymentRequest;
 use App\Http\Requests\UpdatepaymentRequest;
+use App\Notifications\SendPaymentEmail;
 
 class PaymentController extends Controller
 {
@@ -36,7 +38,20 @@ class PaymentController extends Controller
      */
     public function store(StorepaymentRequest $request)
     {
-        //
+        $payment = new payment();
+        $payment->payment_type = $request->payment_type;
+        $payment->payment_status = $request->payment_status;
+        $payment->amount = $request->amount;
+        $payment->user_id = $request->user_id;
+        $payment->order_id = $request->order_id;
+
+        $payment->save();
+        
+        $user = User::find($request->user_id);
+        $user->notify(new SendPaymentEmail($user, $payment));
+        
+        return $payment;
+        
     }
 
     /**

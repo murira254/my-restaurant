@@ -36,7 +36,18 @@ class MenuController extends Controller
      */
     public function store(StoreMenuRequest $request)
     {
-        //
+      $menu = new menu;
+      $menu->name =$request->name;
+      $menu-> price =$request ->price;
+      $menu-> description =$request ->description;
+      $menu-> category =$request ->category_id;
+      $menu-> offers =$request ->offers;
+      $menu-> allergens =$request ->allergens;
+
+      $menu->save();
+      return $menu;
+      
+    
     }
 
     /**
@@ -70,9 +81,17 @@ class MenuController extends Controller
      */
     public function update(UpdateMenuRequest $request, Menu $menu)
     {
-        //
-    }
+      $menu = menu::find($request->id);  
+      $menu->name =$request->name;
+      $menu-> price =$request ->price;
+      $menu-> description =$request ->description;
+      $menu-> category =$request ->category_id;
+      $menu-> offers =$request ->offers;
+      $menu-> allergens =$request ->allergens;
 
+      $menu->save();
+      return $menu;
+    }
     /**
      * Remove the specified resource from storage.
      *

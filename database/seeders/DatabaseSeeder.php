@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('Qwerty1.'),
             'user_type' => 'Employee',
             'phone' => '0720333112',
-            'location' => 'Nairobi',
+            'location' => 'php',
             ],
             [
             'name' => 'Jane Doe',

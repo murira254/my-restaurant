@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\orders;
-use App\Http\Requests\StoreordersRequest;
-use App\Http\Requests\UpdateordersRequest;
+use App\Http\Requests\StoreOrdersRequest;
+use App\Http\Requests\UpdateOrdersRequest;
 
 class OrdersController extends Controller
 {
@@ -15,6 +15,8 @@ class OrdersController extends Controller
      */
     public function index()
     {
+        $orders = orders::all();
+        return $orders;
         //
     }
 
@@ -36,6 +38,16 @@ class OrdersController extends Controller
      */
     public function store(StoreordersRequest $request)
     {
+    
+        $order = new Orders;
+        $order->user_id = $request->user_id;
+        $order->order_type = $request->order_type;
+        $order->order_status = $request->order_status;
+        $order->order_total = $request->order_total;
+    
+        $order->save();
+        return $order;
+
         //
     }
 
@@ -69,7 +81,15 @@ class OrdersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateordersRequest $request, orders $orders)
-    {
+    { 
+        $order = orders :: find($request->id);
+        $order->user_id =$request->user_id;
+        $order->order_type =$request->order_type;
+        $order->order_status =$request->order_status;
+        $order->order_total =$request->order_total;
+        
+        
+
         //
     }
 
